@@ -10,7 +10,12 @@ connectDB();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://real-estate-site-prsunet.netlify.app", 
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/properties", propertyRoutes);
