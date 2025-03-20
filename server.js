@@ -10,12 +10,27 @@ connectDB();
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-  origin: "https://real-estate-site-prsunet.netlify.app", 
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-}));
+
+
+app.use(
+    cors({
+      origin: function (origin, callback) {
+        const allowedOrigins = [
+          "http://localhost:3000", // Local development
+          "https://real-estate-site-prsunet.netlify.app", // Deployed frontend
+        ];
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      },
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+      credentials: true,
+    })
+  );
+  
 
 app.use("/api/auth", authRoutes);
 app.use("/api/properties", propertyRoutes);
