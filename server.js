@@ -16,7 +16,7 @@ app.use(
     cors({
       origin: function (origin, callback) {
         const allowedOrigins = [
-          "http://localhost:3000", // Local development
+          "http://localhost:3000", // Local development added
           "https://real-estate-site-prsunet.netlify.app", // Deployed frontend
         ];
         if (!origin || allowedOrigins.includes(origin)) {
