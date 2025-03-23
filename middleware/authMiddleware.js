@@ -8,7 +8,6 @@ const authMiddleware = (req, res, next) => {
       return res.status(401).json({ error: "Access denied. No token provided." });
     }
 
-    // Handle "Bearer TOKEN" format
     if (token.startsWith("Bearer ")) {
       token = token.split(" ")[1]; // Extract the actual token
     }

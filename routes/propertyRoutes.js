@@ -4,9 +4,7 @@ import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-/** 
- * ✅ Create a New Property (Only Authenticated Users)
- */
+
 router.post("/", authMiddleware, async (req, res) => {
   try {
     const { title, description, price, location, images } = req.body;
@@ -32,9 +30,7 @@ router.post("/", authMiddleware, async (req, res) => {
   }
 });
 
-/** 
- * ✅ Get All Properties (Public)
- */
+
 router.get("/", async (req, res) => {
   try {
     const properties = await Property.find().populate("seller", "name email");
@@ -44,9 +40,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-/** 
- * ✅ Get a Single Property by ID (Public)
- */
+
 router.get("/:id", async (req, res) => {
   try {
     const property = await Property.findById(req.params.id).populate("seller", "name email");
@@ -59,7 +53,7 @@ router.get("/:id", async (req, res) => {
 });
 
 /** 
- * ✅ Update Property (Only Seller)
+  Update Property (Only Seller)
  */
 router.put("/:id", authMiddleware, async (req, res) => {
   try {
@@ -86,9 +80,7 @@ router.put("/:id", authMiddleware, async (req, res) => {
   }
 });
 
-/** 
- * ✅ Delete Property (Only Seller)
- */
+
 router.delete("/:id", authMiddleware, async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);
